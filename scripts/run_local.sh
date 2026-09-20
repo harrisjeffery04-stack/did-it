@@ -18,11 +18,11 @@ export PROVENDONE_PORT="${PROVENDONE_PORT:-8765}"
 export BRIDGE_PORT="${BRIDGE_PORT:-8770}"
 
 echo "[1/2] MCP server (Streamable HTTP)  -> http://127.0.0.1:${PROVENDONE_PORT}/mcp"
-python -m server.app &
+python3 -m server.app &
 MCP_PID=$!
 
 echo "[2/2] voice demo bridge + UI         -> http://127.0.0.1:${BRIDGE_PORT}"
-python demo/bridge.py &
+python3 demo/bridge.py &
 BRIDGE_PID=$!
 
 trap 'kill $MCP_PID $BRIDGE_PID 2>/dev/null' EXIT

@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>ProvenDone — done AND proven done</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  :root { --bg:#0f1115; --card:#181c23; --ink:#e8eaf0; --mut:#9aa3b2; --grn:#2ecc71; --amb:#f39c12; --red:#e74c3c; --acc:#ff9900; }
+  * { box-sizing:border-box; margin:0 }
+  body { background:var(--bg); color:var(--ink); font:15px/1.5 system-ui,Segoe UI,Roboto,sans-serif; display:flex; flex-direction:column; align-items:center; min-height:100vh; }
+  header { padding:20px; text-align:center }
+  h1 { font-size:26px; letter-spacing:.5px } h1 b{color:var(--acc)}
+  .sub{color:var(--mut);font-size:13px;margin-top:6px}
+  #chat{width:min(760px,94vw);display:flex;flex-direction:column;gap:10px;padding:0 0 20px}
+  .msg{max-width:86%;padding:10px 14px;border-radius:14px}
+  .user{align-self:flex-end;background:#2b3140}
+  .agent{align-self:flex-start;background:var(--card);border:1px solid #232936}
+  .rcpt{align-self:stretch;background:var(--card);border:1px solid #232936;border-radius:14px;padding:12px 14px;font-size:13px}
+  .badge{display:inline-block;padding:3px 10px;border-radius:12px;font-weight:700;font-size:12px}
+  .b-proven{background:#103a24;color:var(--grn)} .b-un{background:#3a2f10;color:var(--amb)} .b-fail{background:#3a1616;color:var(--red)}
+  .quick{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;padding:6px 0 14px}
+  .quick button{background:#1e2430;color:var(--ink);border:1px solid #2c3444;border-radius:20px;padding:7px 14px;cursor:pointer;font-size:13px}
+  .quick button:hover{border-color:var(--acc)}
+  .bar{display:flex;gap:8px;width:min(760px,94vw);position:sticky;bottom:12px;padding:8px;background:var(--card);border-radius:14px;border:1px solid #232936}
+  #mic{background:var(--acc);border:none;border-radius:50%;width:46px;height:46px;font-size:20px;cursor:pointer}
+  #mic.on{background:var(--red)}
+  #t{flex:1;background:#11141a;color:var(--ink);border:1px solid #2c3444;border-radius:10px;padding:10px 12px;font-size:14px}
+  #go{background:#1e2430;color:var(--ink);border:1px solid #2c3444;border-radius:10px;padding:0 16px;cursor:pointer}
+  table{width:100%;border-collapse:collapse;margin-top:8px}
+  th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #232936;font-size:12.5px}
+  details{margin-top:6px} summary{cursor:pointer;color:var(--mut)}
+  pre{background:#0c0e12;padding:8px;border-radius:8px;overflow:auto;max-height:240px;font-size:11.5px;color:#bcd}
+  .id{color:var(--mut);font-size:11px;margin-top:6px}
+</style>
+</head>
+<body>
+<header>
+  <h1>Proven<b>Done</b> — done <i>and proven</i> done</h1>
+  <div class="sub">Alexa+ verified personal ops · self-hosted MCP server (Streamable HTTP)</div>
+</header>
+<div class="quick">
+  <button onclick="run('Back up my photos to the vault', [{'action':'file_backup','args':{'source_dir':'demo/fixtures/photos','dest_dir':'demo/fixtures/vault'}}])">📸 Back up my photos</button>
+  <button onclick="run('Is example.com up?', [{'action':'web_check','args':{'url':'https://example.com','expect_text':'Example Domain'}}])">🌐 Check example.com</button>
+  <button onclick="run('Organize my downloads folder', [{'action':'file_organize','args':{'source_dir':'demo/fixtures/messy'}}])">🗂 Organize a folder</button>
+  <button onclick="run('Check disk space')">💾 Check disk space</button>
+</div>
+<div id="chat"></div>
+<div class="bar">
+  <button id="mic" title="click to talk">🎙</button>
+  <input id="t" placeholder="Tell ProvenDone what to do…" autocomplete="off">
+  <button id="go">Send</button>
+</div>
+<script>
+const chat = document.getElementById('chat');
+const BADGE = v => v==='done-and-proven' ? '<span class="badge b-proven">DONE &amp; PROVEN</span>' : v==='done-unverified' ? '<span class="badge b-un">DONE, UNVERIFIED</span>' : '<span class="badge b-fail">FAILED</span>';
+function msg(cls, html){ const d=document.createElement('div'); d.className='msg '+cls; d.innerHTML=html; chat.appendChild(d); window.scrollTo(0,document.body.scrollHeight); return d; }
+function say(text){ try{ speechSynthesis.speak(new SpeechSynthesisUtterance(text)); }catch(e){} }
+async function run(task, steps){
+  msg('user','<b>You:</b> '+task);
+  const w = msg('agent','<b>ProvenDone:</b> working on it…');
+  try{
+    const res = await fetch('/api/task',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({task, steps})});
+    const r = await res.json();
+    w.remove();
+    const evRows=(r.steps||[]).map(s=>'<tr><td>'+s.step+'</td><td><code>'+s.action+'</code></td><td>'+s.summary+'</td><td>'+(s.verified?'✅':'❌')+'</td></tr>').join('');
+    msg('agent', '<div class="rcpt"><div><b>Receipt</b> '+BADGE(r.verdict)+' <span style="color:var(--mut)">'+r.duration_ms+' ms</span></div>'
+      + '<table><tr><th>#</th><th>action</th><th>proof</th><th>verified</th></tr>'+evRows+'</table>'
+      + '<details><summary>evidence (machine-checked)</summary><pre>'+JSON.stringify(r.steps,null,1)+'</pre></details>'
+      + '<div class="id">'+r.receipt_id+'</div></div>');
+    say(r.verdict==='done-and-proven' ? 'Done, and proven. '+r.summary+'.' : 'Verdict: '+r.verdict+'. '+(r.summary||''));
+  }catch(err){ w.remove(); msg('agent','<b>ProvenDone:</b> bridge unreachable — is the server up?'); }
+}
+document.getElementById('go').onclick = () => { const t=document.getElementById('t'); if(t.value.trim()){ run(t.value.trim(), null); t.value=''; } };
+document.getElementById('t').addEventListener('keydown', e => { if(e.key==='Enter') document.getElementById('go').click(); });
+const mic = document.getElementById('mic');
+const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+if (SR) {
+  const rec = new SR(); rec.lang='en-US'; rec.interimResults=false;
+  mic.onclick = () => { mic.classList.add('on'); rec.start(); };
+  rec.onend = () => mic.classList.remove('on');
+  rec.onresult = e => { const t=e.results[0][0].transcript; document.getElementById('t').value=t; run(t.trim(), null); };
+} else { mic.onclick = () => alert('Speech recognition not available in this browser — type instead.'); }
+</script>
+</body>
+</html>

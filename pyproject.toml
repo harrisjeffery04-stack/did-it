@@ -1,0 +1,20 @@
+[project]
+name = "provendone"
+version = "0.1.0"
+description = "Self-hosted MCP server for Alexa+: personal-ops tasks that end in verification receipts — done AND proven done."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+dependencies = [
+    "mcp>=1.28.0",
+    "httpx>=0.28",
+    "uvicorn>=0.51",
+    "starlette>=1.3",
+]
+
+[project.optional-dependencies]
+bedrock = ["boto3>=1.35"]
+dev = ["pytest>=8"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

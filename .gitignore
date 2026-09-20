@@ -1,0 +1,9 @@
+__pycache__/
+*.pyc
+.pytest_cache/
+.venv/
+receipts/*.json
+demo/fixtures/photos/*
+!demo/fixtures/photos/.gitkeep
+.DS_Store
+*.log

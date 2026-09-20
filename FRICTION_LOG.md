@@ -17,8 +17,8 @@ friction logs can earn up to a 10% judging bonus.
 
 ## FE-002 — Confirming which MCP protocol version the installed SDK negotiates
 - **Task attempted:** Confirm the server speaks MCP spec 2025-11-25 or later (the Alexa+ track's hard requirement) before building on top of it.
-- **Steps taken:** (1) checked installed SDK (`mcp 1.28.1`); (2) inspected the SDK's supported protocol version constant before writing server code.
-- **Expected vs. actual:** In progress — recorded here as the track gates the whole entry on this spec date; result will be appended after the first end-to-end run (see README "MCP spec version" line).
-- **Severity:** TBD (blocker-level if the SDK predates the spec; believed fine at 1.28.x).
-- **Workaround:** planned fallback = upgrade `mcp` package before touching any custom protocol code.
-- **Actionable suggestion:** Publish the expected MCP protocol-version handshake (or a conformance check command) in the Alexa+ track docs, so builders can verify compliance in one command instead of reading SDK source.
+- **Steps taken:** (1) checked installed SDK (`mcp` 1.28.1); (2) looked for a one-command version check; (3) built `scripts/smoke_e2e.py` so the first real client handshake prints the negotiated version; (4) ran it.
+- **Expected vs. actual:** Expected a quick `--version`-style check. Actual: the SDK does not advertise its supported protocol version anywhere convenient — it only surfaces in a live client handshake. Result: `PROTOCOL_VERSION_NEGOTIATED: 2025-11-25` — exactly the track's required spec, on the first handshake, on Python 3.14.
+- **Severity:** minor — resolved in favor of the requirement; no workaround needed beyond the smoke script.
+- **Workaround:** `scripts/smoke_e2e.py` now prints the negotiated protocol version on every run, doubling as a permanent compliance check for the repo.
+- **Actionable suggestion:** Publish the expected MCP protocol-version handshake (or a conformance-check command) in the Alexa+ track docs so builders can verify compliance in one command instead of reading SDK source or hand-rolling a handshake.

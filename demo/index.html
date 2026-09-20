@@ -18,6 +18,9 @@
   .rcpt{align-self:stretch;background:var(--card);border:1px solid #232936;border-radius:14px;padding:12px 14px;font-size:13px}
   .badge{display:inline-block;padding:3px 10px;border-radius:12px;font-weight:700;font-size:12px}
   .b-proven{background:#103a24;color:var(--grn)} .b-un{background:#3a2f10;color:var(--amb)} .b-fail{background:#3a1616;color:var(--red)}
+  @keyframes pop{0%{transform:scale(.6);opacity:0}55%{transform:scale(1.15)}100%{transform:scale(1);opacity:1}}
+  .pop{animation:pop .45s ease-out}
+  .b-proven.pop{box-shadow:0 0 14px rgba(46,204,113,.55)}
   .quick{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;padding:6px 0 14px}
   .quick button{background:#1e2430;color:var(--ink);border:1px solid #2c3444;border-radius:20px;padding:7px 14px;cursor:pointer;font-size:13px}
   .quick button:hover{border-color:var(--acc)}
@@ -52,7 +55,7 @@
 </div>
 <script>
 const chat = document.getElementById('chat');
-const BADGE = v => v==='done-and-proven' ? '<span class="badge b-proven">DONE &amp; PROVEN</span>' : v==='done-unverified' ? '<span class="badge b-un">DONE, UNVERIFIED</span>' : '<span class="badge b-fail">FAILED</span>';
+const BADGE = v => v==='done-and-proven' ? '<span class="badge b-proven pop">DONE &amp; PROVEN</span>' : v==='done-unverified' ? '<span class="badge b-un">DONE, UNVERIFIED</span>' : '<span class="badge b-fail">FAILED</span>';
 function msg(cls, html){ const d=document.createElement('div'); d.className='msg '+cls; d.innerHTML=html; chat.appendChild(d); window.scrollTo(0,document.body.scrollHeight); return d; }
 function say(text){ try{ speechSynthesis.speak(new SpeechSynthesisUtterance(text)); }catch(e){} }
 async function run(task, steps){

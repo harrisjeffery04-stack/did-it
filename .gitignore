@@ -5,5 +5,9 @@ __pycache__/
 receipts/*.json
 demo/fixtures/photos/*
 !demo/fixtures/photos/.gitkeep
+demo/fixtures/messy/*
+!demo/fixtures/messy/.gitkeep
+demo/fixtures/vault/*
+!demo/fixtures/vault/.gitkeep
 .DS_Store
 *.log

@@ -5,7 +5,7 @@ cd "$(dirname "$0")/.."
 
 mkdir -p receipts demo/fixtures/photos demo/fixtures/vault
 
-# demo fixtures (photos backup is idempotent; messy is recreated each start)
+# demo fixtures — deterministic demo state: photos seeded once, messy recreated, vault cleared each start
 [ -f demo/fixtures/photos/IMG_0001.jpg ] || head -c 4096 /dev/urandom > demo/fixtures/photos/IMG_0001.jpg
 [ -f demo/fixtures/photos/IMG_0002.jpg ] || head -c 8192 /dev/urandom > demo/fixtures/photos/IMG_0002.jpg
 [ -f demo/fixtures/photos/IMG_0003.png ] || head -c 2048 /dev/urandom > demo/fixtures/photos/IMG_0003.png
@@ -13,6 +13,8 @@ rm -rf demo/fixtures/messy && mkdir -p demo/fixtures/messy
 head -c 1024 /dev/urandom > demo/fixtures/messy/invoice_mar.pdf
 head -c 2048 /dev/urandom > demo/fixtures/messy/cat_photo.jpg
 head -c  512 /dev/urandom > demo/fixtures/messy/notes.txt
+# clean vault so every on-camera backup starts from scratch
+find demo/fixtures/vault -type f ! -name '.gitkeep' -delete
 
 export PROVENDONE_PORT="${PROVENDONE_PORT:-8765}"
 export BRIDGE_PORT="${BRIDGE_PORT:-8770}"

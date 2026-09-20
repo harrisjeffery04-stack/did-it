@@ -1,1 +1,1 @@
-"""ProvenDone — server package: verified personal-ops MCP server for Alexa+."""
+"""DID IT — server package: verified personal-ops MCP server for Alexa+."""

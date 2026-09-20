@@ -63,7 +63,7 @@ class BedrockPlanner:
         import boto3  # optional dependency
         self._client = boto3.client("bedrock-runtime")
         self.model_id = model_id or os.environ.get(
-            "PROVENDONE_BEDROCK_MODEL", "us.anthropic.claude-3-5-haiku-20241022-v1:0")
+            "DID_IT_BEDROCK_MODEL", "us.anthropic.claude-3-5-haiku-20241022-v1:0")
 
     def plan(self, task: str) -> list[dict]:
         prompt = (

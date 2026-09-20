@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>ProvenDone — done AND proven done</title>
+<title>DID IT — done AND proven done</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
   :root { --bg:#0f1115; --card:#181c23; --ink:#e8eaf0; --mut:#9aa3b2; --grn:#2ecc71; --amb:#f39c12; --red:#e74c3c; --acc:#ff9900; }
@@ -50,7 +50,7 @@
 <div id="chat"></div>
 <div class="bar">
   <button id="mic" title="click to talk">🎙</button>
-  <input id="t" placeholder="Tell ProvenDone what to do…" autocomplete="off">
+  <input id="t" placeholder="Tell DID IT what to do…" autocomplete="off">
   <button id="go">Send</button>
 </div>
 <script>
@@ -60,7 +60,7 @@ function msg(cls, html){ const d=document.createElement('div'); d.className='msg
 function say(text){ try{ speechSynthesis.speak(new SpeechSynthesisUtterance(text)); }catch(e){} }
 async function run(task, steps){
   msg('user','<b>You:</b> '+task);
-  const w = msg('agent','<b>ProvenDone:</b> working on it…');
+  const w = msg('agent','<b>DID IT:</b> working on it…');
   try{
     const res = await fetch('/api/task',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({task, steps})});
     const r = await res.json();
@@ -71,7 +71,7 @@ async function run(task, steps){
       + '<details><summary>evidence (machine-checked)</summary><pre>'+JSON.stringify(r.steps,null,1)+'</pre></details>'
       + '<div class="id">'+r.receipt_id+'</div></div>');
     say(r.verdict==='done-and-proven' ? 'Done, and proven. '+r.summary+'.' : 'Verdict: '+r.verdict+'. '+(r.summary||''));
-  }catch(err){ w.remove(); msg('agent','<b>ProvenDone:</b> bridge unreachable — is the server up?'); }
+  }catch(err){ w.remove(); msg('agent','<b>DID IT:</b> bridge unreachable — is the server up?'); }
 }
 document.getElementById('go').onclick = () => { const t=document.getElementById('t'); if(t.value.trim()){ run(t.value.trim(), null); t.value=''; } };
 document.getElementById('t').addEventListener('keydown', e => { if(e.key==='Enter') document.getElementById('go').click(); });

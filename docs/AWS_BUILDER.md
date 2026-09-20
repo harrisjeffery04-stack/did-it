@@ -22,7 +22,7 @@ mark anything "done".
 ```bash
 pip install boto3                      # or: pip install -e ".[bedrock]"
 aws configure                          # or env credentials
-export PROVENDONE_BEDROCK_MODEL="us.anthropic.claude-3-5-haiku-20241022-v1:0"
+export DID_IT_BEDROCK_MODEL="us.anthropic.claude-3-5-haiku-20241022-v1:0"
 python scripts/smoke_e2e.py            # same tests, now Bedrock-planned free text
 ```
 
@@ -35,7 +35,7 @@ pointing to this file.
 | Item | Value |
 |---|---|
 | AWS service | Amazon Bedrock (Bedrock runtime `invoke_model`) |
-| Model | `us.anthropic.claude-3-5-haiko-*` (env-tunable via `PROVENDONE_BEDROCK_MODEL`) |
+| Model | `us.anthropic.claude-3-5-haiko-*` (env-tunable via `DID_IT_BEDROCK_MODEL`) |
 | Role in project | Task planner (free text → structured steps) |
 | Guardrails | Plan schema validation + allowed-action whitelist + assertion; verification stays mechanical |
 | Status | Implemented and credential-guarded; live run pending AWS credentials (the hackathon offers a $150 credit request form) |

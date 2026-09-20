@@ -1,6 +1,6 @@
 """Receipts — append-only, evidence-bearing records of every task run.
 
-A receipt is the unit of trust in ProvenDone: plan, per-step execution with
+A receipt is the unit of trust in DID IT: plan, per-step execution with
 machine-checkable evidence, and a verdict. Receipts persist as JSON under
 ./receipts/ so any client (or a human, or an auditor) can re-read the proof.
 """

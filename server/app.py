@@ -1,4 +1,4 @@
-"""ProvenDone MCP server — the Alexa+ integration.
+"""DID IT MCP server — the Alexa+ integration.
 
 Self-hosted MCP server (Streamable HTTP transport, MCP spec 2025-11-25+)
 exposing the verified personal-ops toolset:
@@ -20,9 +20,9 @@ from .executors import EXECUTORS, execute
 from .planner import get_planner
 
 mcp = FastMCP(
-    "provendone",
+    "did-it",
     instructions=(
-        "ProvenDone: personal-ops tasks that end in verification receipts. "
+        "DID IT: personal-ops tasks that end in verification receipts. "
         "Call run_task with a task description and optional explicit steps: "
         "a list of {\"action\": ..., \"args\": {...}}. Available actions: "
         + ", ".join(sorted(EXECUTORS)) +
@@ -32,8 +32,8 @@ mcp = FastMCP(
         "the stored proof at any time."
     ),
     stateless_http=True,
-    host=os.environ.get("PROVENDONE_HOST", "127.0.0.1"),
-    port=int(os.environ.get("PROVENDONE_PORT", "8765")),
+    host=os.environ.get("DID_IT_HOST", "127.0.0.1"),
+    port=int(os.environ.get("DID_IT_PORT", "8765")),
 )
 
 

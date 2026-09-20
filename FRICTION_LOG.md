@@ -1,4 +1,4 @@
-# FRICTION LOG — ProvenDone (Amazon Developer Hackathon 2026)
+# FRICTION LOG — DID IT (Amazon Developer Hackathon 2026)
 
 Format per the hackathon's official friction-log spec:
 **task attempted → steps taken → expected vs. actual → severity → workaround → actionable suggestion.**

@@ -1,11 +1,11 @@
-# ProvenDone — done AND proven done
+# DID IT — done AND proven done
 
 ![MIT](https://img.shields.io/badge/license-MIT-green.svg) ![Python 3.10+](https://img.shields.io/badge/python-3.10%2B-blue.svg) ![MCP spec 2025-11-25](https://img.shields.io/badge/MCP%20spec-2025--11--25-orange.svg) ![Streamable HTTP](https://img.shields.io/badge/transport-Streamable%20HTTP-purple.svg)
 
 **Alexa+ track entry · [Build, Ship, Shape: Amazon Developer Hackathon 2026](https://amazonappdev2026.devpost.com/)**
 
 Ask an assistant to do something and it says "OK, done." But did it?
-ProvenDone is a self-hosted **MCP server for Alexa+** where every task ends in
+DID IT is a self-hosted **MCP server for Alexa+** where every task ends in
 a **receipt**: the plan, each step's execution, and machine-checkable
 **evidence** — sha256 pairs, before/after listings, live HTTP responses.
 An action is only `done` when it is *proven done*.

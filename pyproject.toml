@@ -1,5 +1,5 @@
 [project]
-name = "provendone"
+name = "did-it"
 version = "0.1.0"
 description = "Self-hosted MCP server for Alexa+: personal-ops tasks that end in verification receipts — done AND proven done."
 readme = "README.md"

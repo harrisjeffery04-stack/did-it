@@ -1,13 +1,13 @@
-# Exposing ProvenDone to Alexa+
+# Exposing DID IT to Alexa+
 
 Alexa+ integrates with **self-hosted MCP servers over Streamable HTTP**
-(track requirement: MCP spec **2025-11-25 or later**). ProvenDone speaks it —
+(track requirement: MCP spec **2025-11-25 or later**). DID IT speaks it —
 verified live: the smoke run prints `PROTOCOL_VERSION_NEGOTIATED: 2025-11-25`.
 
 ## 1. Run the server, reachable from the internet
 
 ```bash
-PROVENDONE_HOST=0.0.0.0 PROVENDONE_PORT=8765 python -m server.app
+DID_IT_HOST=0.0.0.0 DID_IT_PORT=8765 python -m server.app
 ```
 
 Alexa+ needs a public HTTPS URL. Quickest tunnel:

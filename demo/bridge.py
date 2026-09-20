@@ -14,7 +14,7 @@ from starlette.applications import Starlette
 from starlette.responses import FileResponse, JSONResponse
 from starlette.routing import Route
 
-MCP_URL = os.environ.get("PROVENDONE_MCP_URL", "http://127.0.0.1:8765/mcp")
+MCP_URL = os.environ.get("DID_IT_MCP_URL", "http://127.0.0.1:8765/mcp")
 HERE = os.path.dirname(os.path.abspath(__file__))
 
 

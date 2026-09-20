@@ -1,4 +1,4 @@
-"""Unit tests for the ProvenDone core (offline-safe, no network).
+"""Unit tests for the DID IT core (offline-safe, no network).
 
 These test the verification discipline itself: every executor must return
 evidence and only set verified=True when the proof holds.
@@ -18,7 +18,7 @@ def _mkfiles(d: pathlib.Path, names=("a.txt", "b.txt", "c.jpg")):
     d.mkdir(parents=True, exist_ok=True)
     for n in names:
         p = d / n
-        p.write_bytes(f"provendone fixture {n} ".encode() * 50)
+        p.write_bytes(f"did-it fixture {n} ".encode() * 50)
     return d
 
 

@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# ProvenDone local run: MCP server (Streamable HTTP) + voice-style web demo.
+# DID IT local run: MCP server (Streamable HTTP) + voice-style web demo.
 set -e
 cd "$(dirname "$0")/.."
 
@@ -16,10 +16,10 @@ head -c  512 /dev/urandom > demo/fixtures/messy/notes.txt
 # clean vault so every on-camera backup starts from scratch
 find demo/fixtures/vault -type f ! -name '.gitkeep' -delete
 
-export PROVENDONE_PORT="${PROVENDONE_PORT:-8765}"
+export DID_IT_PORT="${DID_IT_PORT:-8765}"
 export BRIDGE_PORT="${BRIDGE_PORT:-8770}"
 
-echo "[1/2] MCP server (Streamable HTTP)  -> http://127.0.0.1:${PROVENDONE_PORT}/mcp"
+echo "[1/2] MCP server (Streamable HTTP)  -> http://127.0.0.1:${DID_IT_PORT}/mcp"
 python3 -m server.app &
 MCP_PID=$!
 

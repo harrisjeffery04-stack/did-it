@@ -1,6 +1,6 @@
 """Executors — every action returns RESULT + EVIDENCE + a verified flag.
 
-The ProvenDone rule: an action is only "done" when the executor can PROVE it.
+The DID IT rule: an action is only "done" when the executor can PROVE it.
 Proof = re-read what was written, hash both sides, compare listings before and
 after, assert on real HTTP responses. Only then does the step earn verified=True.
 """

@@ -21,7 +21,7 @@ sys.path.insert(0, REPO)
 from mcp import ClientSession                      # noqa: E402
 from mcp.client.streamable_http import streamablehttp_client  # noqa: E402
 
-PORT = int(os.environ.get("PROVENDONE_PORT", "8765"))
+PORT = int(os.environ.get("DID_IT_PORT", "8765"))
 URL = f"http://127.0.0.1:{PORT}/mcp"
 
 
@@ -57,7 +57,7 @@ async def main():
                     "task": "smoke: back up the test suite",
                     "steps": [{"action": "file_backup",
                                "args": {"source_dir": "tests",
-                                        "dest_dir": "/tmp/provendone_smoke_vault"}}]}))
+                                        "dest_dir": "/tmp/did-it_smoke_vault"}}]}))
                 print(f"RUN_TASK verdict={r1['verdict']} steps={len(r1['steps'])} "
                       f"duration_ms={r1['duration_ms']}")
                 print(f"  evidence sample: {json.dumps(r1['steps'][0]['evidence'][0])}")
